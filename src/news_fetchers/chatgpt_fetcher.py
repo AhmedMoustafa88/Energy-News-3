@@ -96,7 +96,6 @@ If you don't have recent information, return: {{"articles": []}}
             )
             
             content = response.choices[0].message.content
-
             
             # Parse JSON response
             try:
@@ -187,7 +186,6 @@ Format in plain text, not markdown.
             )
             
             return response.choices[0].message.content
-
             
         except Exception as e:
             print(f"   ❌ ChatGPT enhancement exception: {str(e)}")
