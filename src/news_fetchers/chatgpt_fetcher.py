@@ -95,7 +95,8 @@ If you don't have recent information, return: {{"articles": []}}
                 response_format={"type": "json_object"}
             )
             
-            content = response.choices,[object Object],message.content
+            content = response.choices[0].message.content
+
             
             # Parse JSON response
             try:
