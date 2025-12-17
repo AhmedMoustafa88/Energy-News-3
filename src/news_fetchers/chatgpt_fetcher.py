@@ -186,7 +186,8 @@ Format in plain text, not markdown.
                 temperature=0.5
             )
             
-            return response.choices,[object Object],message.content
+            return response.choices[0].message.content
+
             
         except Exception as e:
             print(f"   ❌ ChatGPT enhancement exception: {str(e)}")
