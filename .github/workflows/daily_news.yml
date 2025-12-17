@@ -1,0 +1,40 @@
+name: Daily Electricity Meters News Bot
+
+on:
+  schedule:
+    # 11:00 AM UAE Time (UTC+4) = 07:00 UTC
+    - cron: '0 7 * * *'
+  
+  # Manual trigger for testing
+  workflow_dispatch:
+
+jobs:
+  fetch-and-send-news:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: 🚀 Run news aggregation script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_WHATSAPP_NUMBER: ${{ secrets.TWILIO_WHATSAPP_NUMBER }}
+          WHATSAPP_PHONE_NUMBERS: ${{ secrets.WHATSAPP_PHONE_NUMBERS }}
+        run: |
+          python src/main.py
